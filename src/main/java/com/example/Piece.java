@@ -65,6 +65,8 @@ public class Piece {
             
     Square right = b.getSquareArray()[start.getRow()][start.getCol()+1];
        if(right.getOccupyingPiece().getColor() != color){
+        ///....
     }
     return null;
-}
+    }
+}}
