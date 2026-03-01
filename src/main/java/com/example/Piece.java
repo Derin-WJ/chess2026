@@ -60,6 +60,7 @@ public class Piece {
     //returns an arraylist of squares which are legal to move to
     //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
     //going to score any points.
+    
     public ArrayList<Square> getLegalMoves(Board b, Square start){
         if(start.getCol() < 7){
             
@@ -69,4 +70,5 @@ public class Piece {
     }
     return null;
     }
-}}
+}
+}

@@ -68,19 +68,19 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
       //for (.....)  
 //        	populate the board with squares here. Note that the board is composed of 64 squares alternating from 
 //        	white to black.
-        for(int x = 0; x < 8; x++){
-            for(int y = 0; y < 8; y++){
-                    boolean isWhite = (x + y) % 2 == 0;
-                    
-                    Square sq = new Square(this, isWhite, x, y);
-                    board[x][y] = sq;
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                    boolean isWhite = (r + c) % 2 == 0;
+                    Square sq = new Square(this, isWhite, r, c);
+                    board[r][c] = sq;
                     this.add(sq);
             }    
         }
 
-    
+
+
         initializePieces();
-        
+
 
         this.setPreferredSize(new Dimension(400, 400));
         this.setMaximumSize(new Dimension(400, 400));
@@ -180,12 +180,15 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //moving the new piece to it's new board location. 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
-        for(Square[] row: board){
-            for(Square s: row){
+        for(Square[] row:board){
+            for(Square s:row){
                 s.setBorder(null);
             }
         }
+         
+        Square endSquare = (Square) this.getComponentAt(new Point(e.getX(), e.getY()));
+        
+
         //using currPiece
         if(fromMoveSquare != null){
             if(currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
