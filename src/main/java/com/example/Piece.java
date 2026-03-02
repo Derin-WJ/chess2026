@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -62,7 +60,7 @@ public class Piece {
     //going to score any points.
     
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-        if(start.getCol() < 7){
+        if(start.getRow() == 0){
             
     Square right = b.getSquareArray()[start.getRow()][start.getCol()+1];
        if(right.getOccupyingPiece().getColor() != color){

@@ -138,6 +138,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             for (int y = 0; y < 8; y++) {
                 Square sq = board[x][y];
                 if(sq == fromMoveSquare)
+                    
                 	 sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
                 System.out.println("Painting square at " + x + ", " + y);   
