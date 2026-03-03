@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.net.URL;
+import javax.swing.border.Border;
 import java.awt.Toolkit;
 
 import javax.swing.*;
@@ -95,9 +96,14 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	//set up the board such that the black pieces are on one side and the white pieces are on the other.
 	//since we only have one kind of piece for now you need only set the same number of pieces on either side.
 	//it's up to you how you wish to arrange your pieces.
+
+    //my piece arrangement is a piece where the bishops should normally go, but the right bishops are moved one right
     void initializePieces() {
     	
-    	 board[0][0].put(new Piece(true, RESOURCES_WKING_PNG));
+    	 board[7][3].put(new Piece(true, RESOURCES_WBISHOP_PNG));
+         board[7][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));
+         board[0][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));
+         board[0][5].put(new Piece(false, RESOURCES_BBISHOP_PNG));
         
 
     }
@@ -133,15 +139,16 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
         }
     
-
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                Square sq = board[x][y];
+//this code is to establish the board in a row major order and to paint the squares
+//in opposite color order
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                Square sq = board[r][c];
                 if(sq == fromMoveSquare)
                     
                 	 sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-                System.out.println("Painting square at " + x + ", " + y);   
+                System.out.println("Painting square at " + r + ", " + c);   
                 
             }
         }
@@ -165,8 +172,20 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             currPiece = sq.getOccupyingPiece();
             
             fromMoveSquare = sq;
+            //highlight legal moves in red for the chosen piece
             for(Square s: currPiece.getLegalMoves(this, sq)){
-                s.setBorder(BorderFactory.createMatteBorder(5,5,5,5,Color.red));
+                s.setBorder(BorderFactory.createMatteBorder(7,7,7,7,Color.red));
+            }
+            //highlight controlled moves in blue for the chosen piece
+            //border section implemented from stackoverflow.com about how to make 2 borders with 
+            //the util.library about borders inserted at the top of the file
+            for(Square s: currPiece.getControlledSquares(this.getSquareArray(), sq)){
+                Border existing = s.getBorder();
+                if(existing == null){
+                s.setBorder(BorderFactory.createMatteBorder(3,3,3,3,Color.blue));
+            } else{
+                s.setBorder(BorderFactory.createCompoundBorder(existing, BorderFactory.createMatteBorder(3,3,3,3,Color.blue)));
+            }
             }
             if (currPiece.getColor() != whiteTurn)
                 return;
@@ -180,6 +199,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //use the pieces "legal move" function to determine if this move is legal, then complete it by
     //moving the new piece to it's new board location. 
     @Override
+    //precondition: the piece being moved is not null and the square its being moved to is on the board
+    //postcondition: the piece is moved to the new square if it's a legal move as determined by the getLegalMoves
     public void mouseReleased(MouseEvent e) {
         for(Square[] row:board){
             for(Square s:row){
