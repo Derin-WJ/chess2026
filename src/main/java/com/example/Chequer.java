@@ -13,33 +13,9 @@ public class Chequer extends Piece{
     
     
     public Chequer(boolean isWhite, String img_file) {
-        this.color = isWhite;
+        super(isWhite, img_file);
          
-        try {
-            if (this.img == null) {
-                this.img = ImageIO.read(new File(System.getProperty("user.dir")+img_file));
-            }
-          } catch (IOException e) {
-            System.out.println("File not found: " + e.getMessage());
-          }
-    }
-    
-    
-
-    
-    public boolean getColor() {
-        return color;
-    }
-    
-    public Image getImage() {
-        return img;
-    }
-    
-    public void draw(Graphics g, Square currentSquare) {
-        int x = currentSquare.getX();
-        int y = currentSquare.getY();
         
-        g.drawImage(this.img, x, y, null);
     }
     
     

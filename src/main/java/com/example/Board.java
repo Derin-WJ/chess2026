@@ -100,10 +100,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //my piece arrangement is a piece where the bishops should normally go, but the right bishops are moved one right
     void initializePieces() {
     	
-    	 board[7][3].put(new Piece(true, RESOURCES_WBISHOP_PNG));
-         board[7][5].put(new Piece(true, RESOURCES_WBISHOP_PNG));
-         board[0][2].put(new Piece(false, RESOURCES_BBISHOP_PNG));
-         board[0][5].put(new Piece(false, RESOURCES_BBISHOP_PNG));
+    	 board[7][3].put(new Chequer(true, RESOURCES_WBISHOP_PNG));
+         board[7][5].put(new Chequer(true, RESOURCES_WBISHOP_PNG));
+         board[0][2].put(new Chequer(false, RESOURCES_BBISHOP_PNG));
+         board[0][5].put(new Chequer(false, RESOURCES_BBISHOP_PNG));
         
 
     }
