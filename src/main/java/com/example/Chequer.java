@@ -1,12 +1,11 @@
-package com.example;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+//Derin Soysal
 
-import javax.imageio.ImageIO;
+//My piece is the Chequer
+//It moves by either going one diagonal, or 2 horizontally or vertically, ultimately
+//making a diamond shape that keeps it in the same color tiles the whole game
+
+package com.example;
+import java.util.ArrayList;
 
 //you will need to implement two functions in this file.
 public class Chequer extends Piece{
@@ -75,6 +74,8 @@ public class Chequer extends Piece{
     //My piece moves diagonally in any direction, but only for one square. Or, it can move 2 squares left, right, or up and down. 
     //This creates almost a diamond shape of moves that match the color that the piece starts on and cant be changed.
 
+
+
     //precondition: the piece is not null and the square is on the board
     //postcondition: returns an arraylist of squares that the piece can move to based on the rules
     //that it can't move to a same color piece and it can't move off the board.
@@ -119,5 +120,16 @@ public class Chequer extends Piece{
         return moves;
     }
     
+    //precondition: The toString method is previously declared in Piece.java
+    //postcondition: returns a string with the name of the piece and its color
+    @Override
+public String toString(){
+    if(color == true){
+    return "White Chequer";
+    }else{
+    return "Black Chequer";
 
 }
+}
+}
+

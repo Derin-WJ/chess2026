@@ -36,6 +36,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
+    private static final String RESOURCES_WCHEQUER_JPG = path+"wchecquer.jpg";
+    private static final String RESOURCES_BCHEQUER_JPG = path+"bchequer.jpg";
 
     
 	
@@ -100,10 +102,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //my piece arrangement is a piece where the bishops should normally go, but the right bishops are moved one right
     void initializePieces() {
     	
-    	 board[7][3].put(new Chequer(true, RESOURCES_WBISHOP_PNG));
-         board[7][5].put(new Chequer(true, RESOURCES_WBISHOP_PNG));
-         board[0][2].put(new Chequer(false, RESOURCES_BBISHOP_PNG));
-         board[0][5].put(new Chequer(false, RESOURCES_BBISHOP_PNG));
+    	 board[7][3].put(new Chequer(true, RESOURCES_WCHEQUER_JPG));
+         board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_JPG));
+         board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_JPG));
+         board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_JPG));
         
 
     }
