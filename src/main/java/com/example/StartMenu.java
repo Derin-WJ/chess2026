@@ -42,6 +42,8 @@ public class StartMenu implements Runnable {
         final JLabel blackPiece = new JLabel();
         try {
             Image blackImg = ImageIO.read(new File(System.getProperty("user.dir")+"/src/main/java/com/example/Pictures/bp.png"));
+            System.out.println("works: "+System.getProperty("user.dir")+"/src/main/java/com/example/Pictures/bp.png");
+          
             blackPiece.setIcon(new ImageIcon(blackImg));
             blackPanel.add(blackPiece);
         } catch (Exception e) {

@@ -36,8 +36,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
-    private static final String RESOURCES_WCHEQUER_JPG = path+"wchecquer.jpg";
-    private static final String RESOURCES_BCHEQUER_JPG = path+"bchequer.jpg";
+    private static final String RESOURCES_WCHEQUER_PNG = path+"wchequer.png";
+    private static final String RESOURCES_BCHEQUER_PNG = path+"bchequer.png";
 
     
 	
@@ -76,7 +76,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                     boolean isWhite = (r + c) % 2 == 0;
                     Square sq = new Square(this, isWhite, r, c);
                     board[r][c] = sq;
-                    this.add(sq);
+                    add(sq);
             }    
         }
 
@@ -102,10 +102,10 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //my piece arrangement is a piece where the bishops should normally go, but the right bishops are moved one right
     void initializePieces() {
     	
-    	 board[7][3].put(new Chequer(true, RESOURCES_WCHEQUER_JPG));
-         board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_JPG));
-         board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_JPG));
-         board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_JPG));
+    	 board[7][3].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
+         board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
+         board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
+         board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
         
 
     }
@@ -128,18 +128,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     @Override
     public void paintComponent(Graphics g) {
-     Image backgroundImage = null; 
-     URL imageUrl = null;
-     if (currPiece != null) {
-      imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
-     }
 
-     if (imageUrl != null) {
-            // This is the cleanest way to get an AWT Image object from a URL
-            backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        } else {
-            System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
-        }
+        super.paintComponent(g);
+
     
 //this code is to establish the board in a row major order and to paint the squares
 //in opposite color order
@@ -147,10 +138,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             for (int c = 0; c < 8; c++) {
                 Square sq = board[r][c];
                 if(sq == fromMoveSquare)
-                    
                 	 sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-                System.out.println("Painting square at " + r + ", " + c);   
+                 
                 
             }
         }
