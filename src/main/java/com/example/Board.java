@@ -9,14 +9,10 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.net.URL;
-import javax.swing.border.Border;
-import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 //You will be implmenting a part of a function and a whole function in this document. Please follow the directions for the 
 //suggested order of completion that should make testing easier.
@@ -106,8 +102,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
          board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
          board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
          board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
-        
-
+         board[7][4].put(new Chequer(false, RESOURCES_WKING_PNG));
+         board[0][4].put(new Chequer(false, RESOURCES_BKING_PNG));
     }
 
     public Square[][] getSquareArray() {
