@@ -1,5 +1,4 @@
 package com.example;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,6 +8,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -102,8 +102,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
          board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
          board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
          board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
-         board[7][4].put(new Chequer(false, RESOURCES_WKING_PNG));
-         board[0][4].put(new Chequer(false, RESOURCES_BKING_PNG));
+         board[7][4].put(new King(true, RESOURCES_WKING_PNG));
+         board[0][4].put(new King(false, RESOURCES_BKING_PNG));
     }
 
     public Square[][] getSquareArray() {
@@ -184,21 +184,25 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     public boolean isInCheck(boolean color){
         //TO BE IMPLEMENTED
-        ArrayList <Piece> oppPieces = new ArrayList<Piece>();
+        
 
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[0].length; j++){
-                if(board[i][j].isOccupied() == true && board[i][j].getOccupyingPiece() == !color){
-                    oppPieces.add(board[i][j].getOccupyingPiece());
+                if(board[i][j].isOccupied() == true && board[i][j].getOccupyingPiece().getColor() != color){
+                   Piece oppPiece = (board[i][j].getOccupyingPiece());
+                    for(Square s: oppPiece.getControlledSquares(board, board[i][j])){
+                        if(s.getOccupyingPiece() != null && s.getOccupyingPiece() instanceof King && s.getOccupyingPiece().getColor() == color){
+                            board[i][j].setBorder(BorderFactory.createMatteBorder(j, j, j, i, Color.PINK));
+                            System.out.println("im in check!");
+                            return true;
+                        }
+                
                 }
             }
         }
-        for(int i = 0; i < oppPieces.size(); i++){
-            if(oppPieces.get(i).getControlledSquares( ))
-        }
-
-        return true;
     }
+    return false;
+}
 
 
 
@@ -220,29 +224,29 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         
 
         //using currPiece
-        if(fromMoveSquare != null){
-            if(currPiece != null && currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare)){
+          if(fromMoveSquare!= null && currPiece!= null){
+            fromMoveSquare.setDisplay(true);
+            if(currPiece.getLegalMoves(this, fromMoveSquare).contains(endSquare) && whiteTurn == currPiece.getColor()) {
                 Piece captured = endSquare.getOccupyingPiece();
                 endSquare.put(currPiece);
                 fromMoveSquare.removePiece();
+                System.out.println("white turn is "+whiteTurn);
+                if(isInCheck(whiteTurn)) {
+                    fromMoveSquare.put(currPiece);
+                    endSquare.put(captured);
+                }else {
+                    whiteTurn = !whiteTurn;
+                }
             }
-            fromMoveSquare.setDisplay(true);
-            whiteTurn = !whiteTurn;
-            if(isInCheck(whiteTurn)){
-        fromMoveSquare.put(currPiece);
-        endSquare.put(captured);
-        WhiteTurn = !whiteTurn;
-    }
         }
+    
+
+        
 
         currPiece = null;
         repaint();
     }
-    if(isInCheck(whiteTurn)){
-        fromMoveSquare.put(currPiece);
-        endSquare.put(captured);
-        WhiteTurn = !whiteTurn;
-    }
+    
 
     @Override
     public void mouseDragged(MouseEvent e) {
