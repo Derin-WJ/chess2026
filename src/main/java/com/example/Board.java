@@ -8,7 +8,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -98,12 +97,33 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     //my piece arrangement is a piece where the bishops should normally go, but the right bishops are moved one right
     void initializePieces() {
     	
-    	 board[7][3].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
+    	 board[7][2].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
          board[7][5].put(new Chequer(true, RESOURCES_WCHEQUER_PNG));
          board[0][2].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
          board[0][5].put(new Chequer(false, RESOURCES_BCHEQUER_PNG));
+
          board[7][4].put(new King(true, RESOURCES_WKING_PNG));
          board[0][4].put(new King(false, RESOURCES_BKING_PNG));
+
+         board[0][0].put(new Rook(false, RESOURCES_BROOK_PNG));
+         board[0][7].put(new Rook(false, RESOURCES_BROOK_PNG));
+         board[7][7].put(new Rook(true, RESOURCES_WROOK_PNG));
+         board[7][0].put(new Rook(true, RESOURCES_WROOK_PNG));
+
+         board[0][1].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+         board[0][6].put(new Knight(false, RESOURCES_BKNIGHT_PNG));
+         board[7][1].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+         board[7][6].put(new Knight(true, RESOURCES_WKNIGHT_PNG));
+
+         board[0][3].put(new Queen(false, RESOURCES_BQUEEN_PNG));
+         board[7][3].put(new Queen(true, RESOURCES_WQUEEN_PNG));
+         
+         for(int i = 0; i<8; i++){
+            board[1][i].put(new Pawn(false, RESOURCES_BPAWN_PNG));
+         }
+         for(int i = 0; i<8; i++){
+            board[6][i].put(new Pawn(true, RESOURCES_WPAWN_PNG));
+         }
     }
 
     public Square[][] getSquareArray() {
